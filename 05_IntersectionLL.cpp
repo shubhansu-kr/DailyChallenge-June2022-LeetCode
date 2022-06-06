@@ -10,6 +10,32 @@ struct ListNode
     ListNode(int x) : val(x), next(NULL) {}
 };
 
+class Solution2
+{
+    // TimeComplexity: O(m+n);
+    // SpaceComplexity: O(1);
+
+public:
+    ListNode *getIntersectionNode(ListNode *headA, ListNode *headB)
+    {
+        ListNode *tempA = headA, *tempB = headB;
+        if (!tempA || !tempB)
+            return nullptr;
+        while (tempA && tempB && tempA != tempB)
+        {
+            tempA = tempA->next;
+            tempB = tempB->next;
+            if (tempA == tempB)
+                return tempA;
+            if (!tempA)
+                tempA = headB;
+            if (!tempB)
+                tempB = headA;
+        }
+        return tempA;
+    }
+};
+
 class Solution1
 {
     // Memoization using sets
@@ -24,8 +50,10 @@ public:
             freq.insert(headB);
             headB = headB->next;
         }
-        while (headA) {
-            if (freq.count(headA)) return headA;
+        while (headA)
+        {
+            if (freq.count(headA))
+                return headA;
             headA = headA->next;
         }
         return nullptr;
