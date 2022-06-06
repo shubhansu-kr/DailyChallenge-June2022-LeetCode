@@ -13,6 +13,8 @@ struct ListNode
 class Solution1
 {
     // Memoization using sets
+    // Time Complexity: O(m+n);
+    // Space Complexity : O(m/n);
 public:
     ListNode *getIntersectionNode(ListNode *headA, ListNode *headB)
     {
