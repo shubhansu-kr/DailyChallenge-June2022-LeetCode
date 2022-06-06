@@ -10,8 +10,29 @@ struct ListNode
     ListNode(int x) : val(x), next(NULL) {}
 };
 
+class Solution1
+{
+    // Memoization using sets
+public:
+    ListNode *getIntersectionNode(ListNode *headA, ListNode *headB)
+    {
+        unordered_set<ListNode *> freq;
+        while (headB)
+        {
+            freq.insert(headB);
+            headB = headB->next;
+        }
+        while (headA) {
+            if (freq.count(headA)) return headA;
+            headA = headA->next;
+        }
+        return nullptr;
+    }
+};
+
 class Solution
 {
+    // BruteForce
 public:
     ListNode *getIntersectionNode(ListNode *headA, ListNode *headB)
     {
