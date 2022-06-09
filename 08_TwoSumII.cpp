@@ -16,9 +16,32 @@
 #include <bits/stdc++.h>
 using namespace std;
 
+class Solution1 {
+    // Two pointer approach : 
+    // Space Complexity : O(N) 
+public:
+    vector<int> twoSum(vector<int>& numbers, int target) {
+        int i = 0, j = numbers.size()-1;
+        while (i < j) {
+            int sum = numbers[i]+numbers[j];
+            if (sum > target) {
+                --j;
+            }
+            else if (sum < target) {
+                ++i;
+            }
+            else {
+                return {++i, ++j};
+            }
+        }
+        return {};
+    }
+};
+
 class Solution
 {
-    // Using map
+    // Using map : 
+    // Space complexity : O(N) 
 public:
     vector<int> twoSum(vector<int> &numbers, int target)
     {
