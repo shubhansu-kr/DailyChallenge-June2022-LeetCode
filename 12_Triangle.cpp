@@ -9,6 +9,43 @@
 #include <bits/stdc++.h>
 using namespace std;
 
+class Solution3
+{
+    // Tabulation : Space Optimised
+public:
+    int minimumTotal(vector<vector<int>> &triangle)
+    {
+        int m = triangle.size();
+        vector<int> x(m, INT_MAX);
+        x[0] = triangle[0][0];
+        for (int i = 1; i < m; ++i)
+        {
+            vector<int> temp(m);
+            for (int j = 0; j < i + 1; ++j)
+            {
+                int up = INT_MAX;
+                if (j < i)
+                {
+                    up = triangle[i][j] + x[j];
+                }
+                int left = INT_MAX;
+                if (j > 0)
+                {
+                    left = triangle[i][j] + x[j - 1];
+                }
+                temp[j] = min(up, left);
+            }
+            x = temp;
+        }
+        int ans = INT_MAX;
+        for (int &a : x)
+        {
+            ans = min(ans, a);
+        }
+        return ans;
+    }
+};
+
 class Solution2
 {
     // Tabulation
@@ -35,8 +72,8 @@ public:
                     left = triangle[i][j] + dp[i - 1][j - 1];
                 }
 
-                dp[i][j] = min(up, left) ;
-                mini = min(dp[i][j], mini) ;
+                dp[i][j] = min(up, left);
+                mini = min(dp[i][j], mini);
             }
         }
         return mini;
@@ -134,7 +171,7 @@ int main()
 {
     vector<vector<int>> triangle = {{2}, {3, 4}, {6, 5, 7}, {4, 1, 8, 3}};
 
-    Solution2 obj1;
+    Solution3 obj1;
     cout << obj1.minimumTotal(triangle);
 
     ios_base::sync_with_stdio(false);
