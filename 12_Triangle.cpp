@@ -11,6 +11,22 @@ using namespace std;
 
 class Solution
 {
+    // Sorting : Tle
+public:
+    int minimumTotal(vector<vector<int>> &triangle)
+    {
+        int sum = 0;
+        for (int i = 0; i < triangle.size(); ++i)
+        {
+            sort(triangle[i].begin(), triangle[i].end());
+            sum += triangle[i][0];
+        }
+        return sum;
+    }
+};
+
+class Solution
+{
     // BruteForce : TLE
 public:
     int minimumTotal(vector<vector<int>> &triangle)
@@ -35,7 +51,7 @@ int main()
     for (int i = 0; i < 150; ++i)
     {
         cout << "[";
-        for (int j = 0; j < i ; ++j)
+        for (int j = 0; j < i; ++j)
         {
             cout << x << ", ";
             if (x > 100)
