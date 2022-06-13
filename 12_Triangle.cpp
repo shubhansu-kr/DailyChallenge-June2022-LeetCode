@@ -15,8 +15,31 @@ class Solution2
 public:
     int minimumTotal(vector<vector<int>> &triangle)
     {
-        int m = triangle.size(), n = triangle[0].size();
-        return 0;
+        int m = triangle.size();
+        vector<vector<int>> dp(m, vector<int>(m));
+        dp[0][0] = triangle[0][0];
+        int mini;
+        for (int i = 1; i < m; ++i)
+        {
+            mini = INT_MAX;
+            for (int j = 0; j < i + 1; ++j)
+            {
+                int up = INT_MAX;
+                if (j < i)
+                {
+                    up = triangle[i][j] + dp[i - 1][j];
+                }
+                int left = INT_MAX;
+                if (j > 0)
+                {
+                    left = triangle[i][j] + dp[i - 1][j - 1];
+                }
+
+                dp[i][j] = min(up, left) ;
+                mini = min(dp[i][j], mini) ;
+            }
+        }
+        return mini;
     }
 };
 
@@ -111,7 +134,7 @@ int main()
 {
     vector<vector<int>> triangle = {{2}, {3, 4}, {6, 5, 7}, {4, 1, 8, 3}};
 
-    Solution1 obj1;
+    Solution2 obj1;
     cout << obj1.minimumTotal(triangle);
 
     ios_base::sync_with_stdio(false);
