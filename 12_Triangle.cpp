@@ -11,56 +11,69 @@ using namespace std;
 
 class Solution
 {
-    // Sorting : Tle
+    // Recursion
 public:
     int minimumTotal(vector<vector<int>> &triangle)
     {
-        int sum = 0;
-        for (int i = 0; i < triangle.size(); ++i)
-        {
-            sort(triangle[i].begin(), triangle[i].end());
-            sum += triangle[i][0];
-        }
-        return sum;
+        return solve(triangle);
+    }
+    int solve(vector<vector<int>> &triangle, int i = 0, int j = 0)
+    {
+        if (i == triangle.size())
+            return 0;
+
+        // Down
+        int d = triangle[i][j] + solve(triangle, i + 1, j);
+        // Right
+        int r = triangle[i][j] + solve(triangle, i + 1, j + 1);
+        return min(d, r);
     }
 };
 
-class Solution
-{
-    // BruteForce : TLE
-public:
-    int minimumTotal(vector<vector<int>> &triangle)
-    {
-        int sum = 0;
-        for (int i = 0; i < triangle.size(); ++i)
-        {
-            int subMin = INT_MAX;
-            for (int j = 0; j < triangle[i].size(); ++j)
-            {
-                subMin = min(triangle[i][j], subMin);
-            }
-            sum += subMin;
-        }
-        return sum;
-    }
-};
+
+// Try reading question properly 
+// class Solution8
+// {
+//     // Sorting : Tle
+// public:
+//     int minimumTotal(vector<vector<int>> &triangle)
+//     {
+//         int sum = 0;
+//         for (int i = 0; i < triangle.size(); ++i)
+//         {
+//             sort(triangle[i].begin(), triangle[i].end());
+//             sum += triangle[i][0];
+//         }
+//         return sum;
+//     }
+// };
+
+// class Solution
+// {
+//     // BruteForce : TLE
+// public:
+//     int minimumTotal(vector<vector<int>> &triangle)
+//     {
+//         int sum = 0;
+//         for (int i = 0; i < triangle.size(); ++i)
+//         {
+//             int subMin = INT_MAX;
+//             for (int j = 0; j < triangle[i].size(); ++j)
+//             {
+//                 subMin = min(triangle[i][j], subMin);
+//             }
+//             sum += subMin;
+//         }
+//         return sum;
+//     }
+// };
 
 int main()
 {
-    int x = -50;
-    for (int i = 0; i < 150; ++i)
-    {
-        cout << "[";
-        for (int j = 0; j < i; ++j)
-        {
-            cout << x << ", ";
-            if (x > 100)
-                x = -100;
-            else
-                ++x;
-        }
-        cout << i << "],";
-    }
+    vector<vector<int>> triangle = {{2}, {3, 4}, {6, 5, 7}, {4, 1, 8, 3}};
+
+    Solution obj1;
+    cout << obj1.minimumTotal(triangle);
 
     ios_base::sync_with_stdio(false);
     cin.tie(NULL);
