@@ -9,6 +9,46 @@
 #include <bits/stdc++.h>
 using namespace std;
 
+class Solution2
+{
+    // Tabulation
+public:
+    int minimumTotal(vector<vector<int>> &triangle)
+    {
+        int m = triangle.size(), n = triangle[0].size();
+        return 0;
+    }
+};
+
+class Solution1
+{
+    // Recursion : Memoization
+public:
+    int minimumTotal(vector<vector<int>> &triangle)
+    {
+        int m = triangle.size();
+        vector<vector<int>> dp(m, vector<int>(m, -1));
+        solve(triangle, dp);
+        return dp[0][0];
+    }
+    int solve(vector<vector<int>> &triangle, vector<vector<int>> &dp, int i = 0, int j = 0)
+    {
+        if (i == triangle.size())
+            return 0;
+
+        if (dp[i][j] != -1)
+        {
+            return dp[i][j];
+        }
+        // Down
+        int d = triangle[i][j] + solve(triangle, dp, i + 1, j);
+        // Right
+        int r = triangle[i][j] + solve(triangle, dp, i + 1, j + 1);
+
+        return dp[i][j] = min(d, r);
+    }
+};
+
 class Solution
 {
     // Recursion
@@ -30,8 +70,7 @@ public:
     }
 };
 
-
-// Try reading question properly 
+// Try reading question properly
 // class Solution8
 // {
 //     // Sorting : Tle
@@ -72,7 +111,7 @@ int main()
 {
     vector<vector<int>> triangle = {{2}, {3, 4}, {6, 5, 7}, {4, 1, 8, 3}};
 
-    Solution obj1;
+    Solution1 obj1;
     cout << obj1.minimumTotal(triangle);
 
     ios_base::sync_with_stdio(false);
