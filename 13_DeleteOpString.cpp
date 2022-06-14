@@ -8,8 +8,26 @@
 #include <bits/stdc++.h>
 using namespace std;
 
+class Solution1
+{
+    // Tabualtion
+public:
+    int minDistance(string word1, string word2)
+    {
+        vector<vector<int>> dp(size(word1) + 1, vector<int>(size(word2) + 1));
+        for (int i = 0; i <= size(word1); i++)
+            for (int j = 0; j <= size(word2); j++)
+                if (!i || !j)
+                    dp[i][j] = i + j;
+                else
+                    dp[i][j] = word1[i - 1] == word2[j - 1] ? dp[i - 1][j - 1] : 1 + min(dp[i - 1][j], dp[i][j - 1]);
+        return dp[size(word1)][size(word2)];
+    }
+};
+
 class Solution
 {
+    // Recursive : Memoization
 public:
     vector<vector<int>> dp;
     int minDistance(string &word1, string &word2)
@@ -24,7 +42,7 @@ public:
         if (i == size(w1) || j == size(w2))
             return max(size(w1) - i, size(w2) - j);
         if (dp[i][j] != 1000)
-            return dp[i][j]; 
+            return dp[i][j];
         if (w1[i] == w2[j])
             return solve(w1, w2, i + 1, j + 1);
         return dp[i][j] = 1 + min(solve(w1, w2, i + 1, j), solve(w1, w2, i, j + 1));
