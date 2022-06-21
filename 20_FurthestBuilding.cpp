@@ -20,6 +20,30 @@ using namespace std;
 
 class Solution
 {
+    // Discussion solution : Priority Queue
+public:
+    int furthestBuilding(vector<int> heights, int ladders, int bricks)
+    {
+        priority_queue<int> pq;
+        for (int i = 0; i < heights.size() - 1; i++)
+        {
+            int diff = heights[i + 1] - heights[i];
+            if (diff > 0)
+                pq.push(-diff);
+            if (pq.size() > ladders)
+            {
+                bricks += pq.top();
+                pq.pop();
+            }
+            if (bricks < 0)
+                return i;
+        }
+        return heights.size() - 1;
+    }
+};
+
+class Solution
+{
     // Let's Code the brute force
 public:
     pair<int, int> maxBrick(unordered_map<int, int> &br)
@@ -39,7 +63,7 @@ public:
 
     int furthestBuilding(vector<int> &heights, int bricks, int ladders)
     {
-        int n = heights.size()-1;
+        int n = heights.size() - 1;
         // Map index to bricks used
         unordered_map<int, int> br;
         for (int i = 0; i < n; ++i)
