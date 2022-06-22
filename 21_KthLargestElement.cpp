@@ -9,6 +9,23 @@
 #include <bits/stdc++.h>
 using namespace std;
 
+class Solution4
+{
+    // MinHeap : Priority Queue
+public:
+    int findKthLargest(vector<int> &nums, int k)
+    {
+        priority_queue<int, vector<int>, greater<int>> pq;
+        for (int num : nums) {
+            pq.push(num);
+            if (pq.size() > k) {
+                pq.pop();
+            }
+        }
+        return pq.top();
+    }
+};
+
 class Solution3
 {
     // Inbuilt Funtion : Partial sorting
