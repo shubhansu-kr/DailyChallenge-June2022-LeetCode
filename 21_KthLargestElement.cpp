@@ -9,9 +9,20 @@
 #include <bits/stdc++.h>
 using namespace std;
 
-class Solution2
+class Solution3
 {
     // Inbuilt Funtion : Partial sorting
+public:
+    int findKthLargest(vector<int> &nums, int k)
+    {
+        partial_sort(nums.begin(), nums.begin() + k, nums.end(), greater<int>());
+        return nums[k - 1];
+    }
+};
+
+class Solution2
+{
+    // Inbuilt Funtion : nthelement sorting
 public:
     int findKthLargest(vector<int> &nums, int k)
     {
