@@ -9,6 +9,40 @@
 #include <bits/stdc++.h>
 using namespace std;
 
+class Solution7
+{
+    // MaxHeap : multiSet
+public:
+    int findKthLargest(vector<int> &nums, int k)
+    {
+        multiset<int, greater<int>> mset(nums.begin(), nums.end());
+        for (int i = 0; i < k - 1; i++)
+        {
+            mset.erase(mset.begin());
+        }
+        return *mset.begin();
+    }
+};
+
+class Solution6
+{
+    // MinHeap : multiSet
+public:
+    int findKthLargest(vector<int> &nums, int k)
+    {
+        multiset<int> mset;
+        for (int num : nums)
+        {
+            mset.insert(num);
+            if (mset.size() > k)
+            {
+                mset.erase(mset.begin());
+            }
+        }
+        return *mset.begin();
+    }
+};
+
 class Solution5
 {
     // MaxHeap : Priority Queue
@@ -16,7 +50,8 @@ public:
     int findKthLargest(vector<int> &nums, int k)
     {
         priority_queue<int> pq(nums.begin(), nums.end());
-        for (int i = 0; i < k - 1; i++) {
+        for (int i = 0; i < k - 1; i++)
+        {
             pq.pop();
         }
         return pq.top();
@@ -30,9 +65,11 @@ public:
     int findKthLargest(vector<int> &nums, int k)
     {
         priority_queue<int, vector<int>, greater<int>> pq;
-        for (int num : nums) {
+        for (int num : nums)
+        {
             pq.push(num);
-            if (pq.size() > k) {
+            if (pq.size() > k)
+            {
                 pq.pop();
             }
         }
