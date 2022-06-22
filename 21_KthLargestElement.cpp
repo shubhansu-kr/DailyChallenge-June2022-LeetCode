@@ -9,9 +9,20 @@
 #include <bits/stdc++.h>
 using namespace std;
 
+class Solution2
+{
+    // Inbuilt Funtion : Partial sorting
+public:
+    int findKthLargest(vector<int> &nums, int k)
+    {
+        nth_element(nums.begin(), nums.begin() + k - 1, nums.end(), greater<int>());
+        return nums[k - 1];
+    }
+};
+
 class Solution1
 {
-    // Let's try stack
+    // Let's try stack: Unnecessary swapping of elements between the stacks made the algo slow
 public:
     void placeN(stack<int> &s, int n, int k)
     {
