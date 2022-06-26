@@ -12,6 +12,35 @@
 #include <bits/stdc++.h>
 using namespace std;
 
+class Solution2
+{
+    // Recursion : Memoization
+    // Memory Limit Exceeded
+public:
+    int maxScore(vector<int> &cardPoints, int k)
+    {
+        int points = 0, ans = INT_MIN, n = cardPoints.size();
+        vector<vector<int>> dp(n, vector<int>(n, -1));
+        return solve(cardPoints, dp, k, 0, n - 1);
+    }
+    int solve(vector<int> &cardPoints, vector<vector<int>> &dp, int k, int i, int j)
+    {
+        if (k == 0)
+        {
+            return 0;
+        }
+
+        if (dp[i][j] != -1) return dp[i][j];
+
+        // Pick left
+        int left = cardPoints[i] + solve(cardPoints, dp, k - 1, i + 1, j);
+        // Pick Right
+        int right = cardPoints[j] + solve(cardPoints, dp, k - 1, i, j - 1);
+
+        return dp[i][j] = max(left, right);
+    }
+};
+
 class Solution1
 {
     // Recursion Improved
@@ -67,10 +96,10 @@ public:
 
 int main()
 {
-    vector<int> cardPoints = {9,7,7,9,7,7,9};
+    vector<int> cardPoints = {9, 7, 7, 9, 7, 7, 9};
     int k = 7;
 
-    Solution1 Obj1;
+    Solution2 Obj1;
     cout << Obj1.maxScore(cardPoints, k);
 
     ios_base::sync_with_stdio(false);
