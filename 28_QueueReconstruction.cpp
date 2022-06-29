@@ -15,7 +15,24 @@ using namespace std;
 
 class Solution
 {
-    // Let's go BruteForce: Wrong answer 
+    // Sort: insert 
+    // Wrong answer 
+public:
+    vector<vector<int>> reconstructQueue(vector<vector<int>> &people)
+    {
+        sort(people.begin(), people.end(), [](vector<int> &v1, vector<int> &v2)
+             { return v1[0] > v2[0]; });
+        vector<vector<int>> ans ;
+        for(auto &it: people){
+            ans.insert(ans.begin()+it[1], 1, it);
+        } 
+        return ans; 
+    }
+};
+
+class Solution
+{
+    // Let's go BruteForce: Wrong answer
 public:
     vector<vector<int>> reconstructQueue(vector<vector<int>> &people)
     {
@@ -25,26 +42,28 @@ public:
         while (size < people.size())
         {
             vector<int> temp(2, INT_MAX);
-            int ind = -1 ;
+            int ind = -1;
             for (int i = 0; i < people.size(); ++i)
             {
-                if (track[i]) continue;
+                if (track[i])
+                    continue;
                 if (people[i][1] <= size && people[i][0] < temp[0])
                 {
                     temp = people[i];
-                    ind = i ;
+                    ind = i;
                 }
             }
             ans.emplace_back(temp);
             ++size;
             track[ind] = 1;
         }
-        return ans; 
+        return ans;
     }
 };
 
 int main()
 {
+
     ios_base::sync_with_stdio(false);
     cin.tie(NULL);
     return 0;
