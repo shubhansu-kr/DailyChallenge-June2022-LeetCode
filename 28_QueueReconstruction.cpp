@@ -15,18 +15,38 @@ using namespace std;
 
 class Solution
 {
-    // Sort: insert 
-    // Wrong answer 
+    
+public:
+    vector<vector<int>> reconstructQueue(vector<vector<int>> &people)
+    {
+        sort(people.begin(), people.end(), [](vector<int> &v1, vector<int> &v2)
+             { return v1[0] > v2[0] || (v1[0] == v2[0] && v1[1] < v2[1]); });
+        vector<vector<int>> ans;
+        for (auto &it : people)
+        {
+            ans.insert(ans.begin() + it[1], 1, it);
+        }
+        return ans;
+    }
+};
+
+class Solution
+{
+    // Sort: insert
+    // Wrong answer
+
+    // Failed test case : [[9,0],[7,0],[1,9],[3,0],[2,7],[5,3],[6,0],[3,4],[6,2],[5,2]]
 public:
     vector<vector<int>> reconstructQueue(vector<vector<int>> &people)
     {
         sort(people.begin(), people.end(), [](vector<int> &v1, vector<int> &v2)
              { return v1[0] > v2[0]; });
-        vector<vector<int>> ans ;
-        for(auto &it: people){
-            ans.insert(ans.begin()+it[1], 1, it);
-        } 
-        return ans; 
+        vector<vector<int>> ans;
+        for (auto &it : people)
+        {
+            ans.insert(ans.begin() + it[1], 1, it);
+        }
+        return ans;
     }
 };
 
